@@ -22,7 +22,8 @@
 //-------- define Variables:
 int fd;
 char X0,X1, Y0,Y1, Z0,Z1;
-int X,Y,Z,Xs,x16;
+float X,Y,Z;
+int Xs,x16;
 float X11,Y11,Z11;
 const float scale_factor_2g = 3.9; //mg/LSB
 struct axis{
@@ -39,7 +40,7 @@ void initialize_register(int fd){
 	wiringPiI2CWriteReg8(fd,BW_Rate_reg_add,0x09);// 0x09: Normal operation, Output data rate= 50 Hz
 	wiringPiI2CWriteReg8(fd,PWR_CTL_reg_add, 0x08);// Auto_sleep disable
 	wiringPiI2CWriteReg8(fd,DATA_FORMAT_reg_add, 0x08);// OutputResolution: +/-2g Range(10 bit)
-										   // set sensitivity mode of device to 2g --> each LSB = 3.9milli g
+							 // set sensitivity mode of device to 2g --> each LSB = 3.9milli g
 }
 
 //-------- Read and Handle Data:
@@ -97,16 +98,6 @@ int  main(void){
 //		printf("X:%f Y:%f  Z:%f",X,Y,Z);
 		printf("X:%f Y:%f  Z:%f",acc_axis.x,acc_axis.y,acc_axis.z);
 		printf("\n");
-
-		//printf("X= %d", X, "Y= %d", Y, "Z= %d",Z);
-
-		//printf("X11:%d Y11:%d  Z11:%d",X11,Y11,Z11);
-
-
-		//printf("X= %d", X, "Y= %d", Y, "Z= %d",Z);
-		//printf("\n");
-		//printf( X, Y, Z);
-		//printf("\n");
 	}
 
 	return 0;
